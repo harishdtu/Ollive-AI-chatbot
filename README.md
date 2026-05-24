@@ -15,7 +15,7 @@
 
 ### Chat Interface
 
-<img width="1400" alt="Chat UI" src="./screenshots/chat.png" />
+screenshots/Ollive_chat.png
 
 - Multi-turn streaming chat
 - Resume conversations
@@ -26,7 +26,7 @@
 
 ### Dashboard
 
-<img width="1400" alt="Dashboard" src="./screenshots/dashboard.png" />
+screenshots/Ollive_dashboard.png
 
 - Latency charts
 - Throughput analytics
@@ -37,7 +37,7 @@
 
 ### Logs View
 
-<img width="1400" alt="Logs UI" src="./screenshots/logs.png" />
+screenshots/Ollive_logs.png
 
 - Raw inference logs
 - Metadata inspection
