@@ -25,7 +25,21 @@ app.use('/api/chat',          require('./routes/chat'));
 
 // Health check
 app.get('/health', (_, res) => res.json({ status: 'ok', ts: Date.now() }));
-
+// Root route
+app.get('/', (_, res) => {
+  res.json({
+    name: 'Ollive Inference Logger API',
+    status: 'running',
+    version: '1.0.0',
+    endpoints: {
+      health: '/health',
+      conversations: '/api/conversations',
+      chat: '/api/chat/stream',
+      logs: '/api/logs',
+      metrics: '/api/metrics',
+    },
+  });
+});
 // Global error handler
 app.use((err, _req, res, _next) => {
   console.error(err);
