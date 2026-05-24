@@ -7,7 +7,10 @@
 ![Docker](https://img.shields.io/badge/docker-compose%20ready-a8e63d?style=flat)
 
 ---
+## Live Demo
 
+Frontend: [https://your-vercel-url.vercel.app  ](https://ollive-ai-chatbot.vercel.app/)
+Backend:[ https://your-render-url.onrender.com](https://ollive-ai-chatbot.onrender.com/)
 ## Features
 ---
 
