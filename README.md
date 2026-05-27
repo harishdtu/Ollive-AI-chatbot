@@ -279,4 +279,3 @@ const result = await sdk.wrap(
 
 ---
 
-*Built for the Ollive inference logging take-home. Questions → work@ollive.ai*
