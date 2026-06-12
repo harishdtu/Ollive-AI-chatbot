@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ollive-backend
+  namespace: ollive
+  labels:
+    app: ollive-backend
+spec:
+  replicas: 1          # MUST stay 1 — SQLite is single-writer (ReadWriteOnce PVC)
+  selector:
+    matchLabels:
+      app: ollive-backend
+  strategy:
+    type: Recreate     # Recreate (not RollingUpdate) — avoids two pods fighting over PVC
+  template:
+    metadata:
+      labels:
+        app: ollive-backend
+    spec:
+      containers:
+        - name: backend
+          image: ollive-backend:latest   # built from backend/Dockerfile
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3001
+          envFrom:
+            - configMapRef:
+                name: ollive-config
+          env:
+            - name: GEMINI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ollive-secrets
+                  key: GEMINI_API_KEY
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ollive-secrets
+                  key: OPENAI_API_KEY
+          volumeMounts:
+            - name: sqlite-data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3001
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3001
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+      volumes:
+        - name: sqlite-data
+          persistentVolumeClaim:
+            claimName: ollive-sqlite-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ollive-backend
+  namespace: ollive
+  labels:
+    app: ollive-backend
+spec:
+  selector:
+    app: ollive-backend
+  ports:
+    - name: http
+      port: 3001
+      targetPort: 3001
+  type: ClusterIP

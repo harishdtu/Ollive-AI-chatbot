@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ollive-sqlite-pvc
+  namespace: ollive
+  labels:
+    app: ollive-backend
+spec:
+  accessModes:
+    - ReadWriteOnce        # SQLite is single-writer — never scale backend > 1 replica
+  resources:
+    requests:
+      storage: 2Gi
+  # storageClassName: standard   # uncomment and set for your cluster's storage class
+  #                               # e.g. "local-path" (k3s), "standard" (minikube),
+  #                               #      "longhorn" (Rancher), "gp2" (EKS)
