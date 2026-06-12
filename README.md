@@ -70,7 +70,7 @@ git clone <your-repo-url>
 cd ollive-inference-logger
 
 cp .env.example .env
-# Edit .env and set GEMINI_API_KEY=sk-ant-...
+# Edit .env and set GEMINI_API_KEY=AIza...
 
 docker compose up --build
 ```

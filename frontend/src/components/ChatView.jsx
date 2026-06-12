@@ -26,7 +26,7 @@ const MODELS = [
   },
    {
     value: 'google/gemini-2.5-flash-preview',
-    label: 'Gemini 2.5 Flash',
+    label: 'Gemini 2.5 Flash-lite',
     provider: 'google',
   },
   {
